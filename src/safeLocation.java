@@ -1,7 +1,7 @@
 public abstract class safeLocation extends Location {
 
-    public safeLocation(Player player, String name) {
-        super(player, name);
+    public safeLocation(Player player, String name, Inventory inventory) {
+        super(player, name,inventory);
     }
 
     @Override

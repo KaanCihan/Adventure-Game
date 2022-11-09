@@ -1,6 +1,6 @@
 public class Forest extends dangerousLocation{
-    public Forest(Player player) {
-        super(player, "Forest");
+    public Forest(Player player,Inventory inventory) {
+        super(player, "Forest",inventory);
     }
     @Override
     public boolean onLocation() {

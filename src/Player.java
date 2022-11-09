@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Player {
     private Scanner input = new Scanner(System.in);
 
-    Inventory inventory;
+    private Inventory inventory;
     private int damage;
     private int health;
     private int money;
@@ -14,10 +14,12 @@ public class Player {
     private String charName;
 
 
-    public Player(String name) {
+    public Player(String name,Inventory inventory) {
 
         this.name = name;
+        this.inventory = inventory;
     }
+
 
     public void charSelection() {
 
@@ -45,20 +47,31 @@ public class Player {
 
     public void selectLocation() {
         System.out.println("Where do you want to go now?");
-        System.out.println("1-Store\n2-Safe House\n3-Cave");
+        System.out.println("1-Store\n2-Safe House\n3-Cave\n4-Forest\n5-River");
 
         int choose = input.nextInt();
         switch (choose) {
             case 1:
-                Location store = new Store(this);
+                Location store = new Store(this,inventory);
                 store.onLocation();
+                break;
             case 2:
-                Location safeHouse = new SafeHouse(this);
+                Location safeHouse = new SafeHouse(this,inventory);
                 safeHouse.onLocation();
+                break;
             case 3:
-                Location cave = new Cave(this);
+                Location cave = new Cave(this,inventory);
                 cave.onLocation();
-                case 4:
+                break;
+            case 4:
+                Location forest = new Forest(this,inventory);
+                forest.onLocation();
+                break;
+            case 5:
+                Location river = new River(this,inventory);
+                river.onLocation();
+                break;
+
         }
     }
 
@@ -124,5 +137,13 @@ public class Player {
 
     public void setDefence(int defence) {
         this.defence = defence;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 }

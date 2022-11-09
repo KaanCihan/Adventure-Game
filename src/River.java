@@ -1,6 +1,6 @@
 public class River extends dangerousLocation{
-    public River(Player player) {
-        super(player, "River ");
+    public River(Player player,Inventory inventory) {
+        super(player, "River ",inventory);
     }
     @Override
     public boolean onLocation() {

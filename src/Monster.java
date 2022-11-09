@@ -20,6 +20,14 @@ public class Monster {
         monstersList[2] = new Monster(3, "Bear", 7, 20, 12);
         return monstersList;
     }
+    public void initMonster(Monster monster) {
+        this.setId(monster.getId());
+        this.setName(monster.getName());
+        this.setDamage(monster.getDamage());
+        this.setHealth(monster.getHealth());
+        this.setMoney(monster.getMoney());
+
+    }
 
     public String getName() {
         return name;

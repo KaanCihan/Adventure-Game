@@ -1,16 +1,16 @@
-public class SafeHouse extends safeLocation{
+public class SafeHouse extends safeLocation {
 
-    public SafeHouse(Player player) {
-        super(player, "Safe House");
+    public SafeHouse(Player player,Inventory inventory) {
+        super(player, "Safe House", inventory);
     }
 
 
-
     @Override
-    public boolean onLocation(){
+    public boolean onLocation() {
         System.out.println("You are fully healed!!");
-        this.getPlayer().setHealth(this.getPlayer().getMaxHealth());
-        System.out.println("Health : " + this.getPlayer().getHealth());
+        getPlayer().setHealth(getPlayer().getMaxHealth());
+        System.out.println("Health : " + getPlayer().getHealth());
+
         return true;
     }
 }

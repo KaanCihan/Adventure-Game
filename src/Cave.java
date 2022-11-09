@@ -1,7 +1,7 @@
 public class Cave extends dangerousLocation {
-    public Cave(Player player) {
+    public Cave(Player player,Inventory inventory) {
 
-        super(player, "Cave");
+        super(player, "Cave",inventory);
     }
 
     @Override

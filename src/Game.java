@@ -7,12 +7,23 @@ public class Game {
         System.out.println("Welcome adventurer!");
         System.out.println("Please enter your adventurer name :");
         String playerName = input.nextLine();
-        Player player = new Player(playerName);
+        Inventory inventory = new Inventory(false,false,false);
+        Player player = new Player(playerName, inventory);
         player.charSelection();
-        player.setHealth(15);
         System.out.println(player.getHealth());
-        player.selectLocation();
+        while(!(player.getHealth() <= 0)){
 
-
+            player.selectLocation();
+            if(!(player.getHealth() <= 0) && inventory.firewood && inventory.food && inventory.water){
+                System.out.println("Congratulations adventurer!!!");
+                break;
+            }
+        }
+        if (player.getHealth() <= 0){
+            System.out.println("you have died...");
+            System.out.println("---------------------");
+            System.out.println("\t* GAME OVER *");
+            System.out.println("---------------------");
+        }
     }
 }

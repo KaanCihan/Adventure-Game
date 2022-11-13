@@ -6,11 +6,14 @@ public class SafeHouse extends safeLocation {
 
 
     @Override
-    public boolean onLocation() {
+    public void onLocation() {
+        if(getInventory().firewood && getInventory().food && getInventory().water){
+            getPlayer().setWinCondition(true);
+            return;
+        }
         System.out.println("You are fully healed!!");
         getPlayer().setHealth(getPlayer().getMaxHealth());
         System.out.println("Health : " + getPlayer().getHealth());
 
-        return true;
     }
 }

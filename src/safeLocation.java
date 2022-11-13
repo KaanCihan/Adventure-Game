@@ -5,7 +5,7 @@ public abstract class safeLocation extends Location {
     }
 
     @Override
-    public boolean onLocation() {
-        return true;
+    public void onLocation() {
+
     }
 }

@@ -10,7 +10,7 @@ public abstract  class Location {
         this.inventory = inventory;
     }
     protected Scanner input = new Scanner(System.in);
-    public abstract boolean onLocation();
+    public abstract void onLocation();
 
     public Player getPlayer() {
         return player;

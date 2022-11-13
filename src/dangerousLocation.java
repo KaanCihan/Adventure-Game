@@ -1,60 +1,102 @@
 public abstract class dangerousLocation extends Location {
-    Monster monster;
-    public dangerousLocation(Player player, String name, Inventory inventory) {
+    protected Monster monster;
+
+    public dangerousLocation(Player player, String name, Inventory inventory, Monster monster) {
         super(player, name, inventory);
+        this.monster = monster;
     }
 
-    @Override
-    public boolean onLocation() {
-        combat(0);
-        return true;
-    }
 
     public void combat(int k) {
-        Monster[] monster = Monster.monsters();
-        Monster m = monster[k];
+
         int random = (int) (Math.random() * 3);
-
         if (random < 1) {
-            System.out.println("suddenly a " + m.getName() + " appeared in front of you.");
-            switch (k) {
-                case 1:
-                    Monster monsterEnemy = new Monster(1, "Zombie", 3, 10, 4);
-                    break;
-                case 2:
-                    Monster monsterEnemy = new Monster(1, "Zombie", 3, 10, 4);
-                    break;
-                case 3:
-                    Monster monsterEnemy = new Monster(1, "Zombie", 3, 10, 4);
-                    break;
-
-
+            System.out.println("suddenly a " + monster.getName() + " appeared in front of you.");
+            System.out.println("* a " + monster.getName() + " attacks you. *");
+            while (getPlayer().getHealth() > 0 && monster.getHealth() > 0) {
+                getPlayer().setHealth(hitMonster());
+                monster.setHealth(hitPlayer());
+                System.out.println("| your health : " + getPlayer().getHealth() + " | monster's health : " + monster.getHealth() + " |");
             }
-            while(getPlayer().getHealth() > 0 && monsterEnemy.getHealth() > 0){
-            getPlayer().setHealth(hitMonster(monsterEnemy,k));
-                monsterEnemy.setHealth(hitPlayer(monsterEnemy,k));
-            System.out.println("| your health : " + getPlayer().getHealth() + " | monster's health : " + monsterEnemy.getHealth() + " |");
+            if (getPlayer().getHealth() > 0) {
+                getPlayer().setMoney(getPlayer().getMoney() + monster.getMoney());
+                System.out.println("* you have killed a " + monster.getName() + " and now you have " + getPlayer().getMoney() + " coins *");
+                monster.setHealth(monster.getMaxHealth());
             }
+
+            if (getPlayer().getHealth() > 0)
+                giveAward();
         } else if (random < 2) {
-            System.out.println("suddenly two " + m.getName() + " appeared in front of you.");
-            for (int i = 0; i < 2 ;i++){
-                while(getPlayer().getHealth() > 0 && monsterEnemy.getHealth() > 0){
-                    getPlayer().setHealth(hitMonster(monsterEnemy,k));
-                    monsterEnemy.setHealth(hitPlayer(monsterEnemy,k));
-                    System.out.println("| your health : " + getPlayer().getHealth() + " | monster's health : " + monsterEnemy.getHealth()+ " |");
+            System.out.println("suddenly two " + monster.getName() + " appeared in front of you.");
+
+            for (int i = 0; i < 2; i++) {
+                System.out.println("* a " + monster.getName() + " attacks you. *");
+                while (getPlayer().getHealth() > 0 && monster.getHealth() > 0) {
+                    getPlayer().setHealth(hitMonster());
+                    monster.setHealth(hitPlayer());
+                    System.out.println("| your health : " + getPlayer().getHealth() + " | monster's health : " + monster.getHealth() + " |");
+                }
+                if (getPlayer().getHealth() > 0) {
+                    getPlayer().setMoney(getPlayer().getMoney() + monster.getMoney());
+                    System.out.println("* you have killed a " + monster.getName() + " and now you have " + getPlayer().getMoney() + " coins *");
+                    monster.setHealth(monster.getMaxHealth());
                 }
             }
+            if (getPlayer().getHealth() > 0)
+                giveAward();
         } else if (random < 3) {
-            System.out.println("suddenly three " + m.getName() + " appeared in front of you.");
-            for (int i = 0; i < 3 ;i++){
-                while(getPlayer().getHealth() > 0 && monsterEnemy.getHealth() > 0){
-                    getPlayer().setHealth(hitMonster(monsterEnemy,k));
-                    monsterEnemy.setHealth(hitPlayer(monsterEnemy,k));
-                    System.out.println("| your health : " + getPlayer().getHealth() + " | monster's health : " + monsterEnemy.getHealth()+ " |");
+            System.out.println("suddenly three " + monster.getName() + " appeared in front of you.");
+
+            for (int i = 0; i < 3; i++) {
+                System.out.println("* a " + monster.getName() + " attacks you. *");
+                while (getPlayer().getHealth() > 0 && monster.getHealth() > 0) {
+                    getPlayer().setHealth(hitMonster());
+                    monster.setHealth(hitPlayer());
+                    System.out.println("| your health : " + getPlayer().getHealth() + " | monster's health : " + monster.getHealth() + " |");
                 }
+                if (getPlayer().getHealth() > 0) {
+                    getPlayer().setMoney(getPlayer().getMoney() + monster.getMoney());
+                    System.out.println("* you have killed a " + monster.getName() + " and now you have " + getPlayer().getMoney() + " coins *");
+                    monster.setHealth(monster.getMaxHealth());
+                }
+
             }
+            if (getPlayer().getHealth() > 0)
+                giveAward();
         }
 
+    }
+
+    public void snakeCombat() {
+        for (int i = 0; i < (Math.random() * 4) + 1; i++) {
+            while (getPlayer().getHealth() > 0 && monster.getHealth() > 0) {
+                getPlayer().setHealth(hitMonster());
+                monster.setHealth(hitPlayer());
+                System.out.println("| your health : " + getPlayer().getHealth() + " | monster's health : " + monster.getHealth() + " |");
+            }
+            if (getPlayer().getHealth() > 0) {
+                getPlayer().setMoney(getPlayer().getMoney() + monster.getMoney());
+                System.out.println("* you have killed a " + monster.getName());
+                monster.setHealth(monster.getMaxHealth());
+            }
+            if (getPlayer().getHealth() > 0)
+                giveAward();
+        }
+    }
+
+    public void giveAward() {
+        if (monster.getAward() == 1 && !getInventory().isfood()) {
+            getInventory().setFood(true);
+            System.out.println("you gained the food item");
+        } else if (monster.getAward() == 2 && !getInventory().isFirewood()) {
+            getInventory().setFirewood(true);
+            System.out.println("you gained the firewood item.");
+        } else if (monster.getAward() == 3 && !getInventory().isWater()) {
+            getInventory().setWater(true);
+            System.out.println("you gained the water item.");
+        } else if (monster.getAward() == 4) {
+
+        }
     }
 
     public boolean isWin(int k) {
@@ -71,17 +113,18 @@ public abstract class dangerousLocation extends Location {
         return false;
     }
 
-    public int hitMonster(Monster m, int k) {
-        Monster[] monster = Monster.monsters();
-        m = monster[k];
+    public int hitMonster() {
 
-        return getPlayer().getHealth() - m.getDamage();
+        int armor = getInventory().getArmorDefence();
+        if (armor > monster.getDamage()) {
+            armor = monster.getDamage();
+        }
+        return getPlayer().getHealth() - (monster.getDamage() - armor);
     }
 
-    public int hitPlayer(Monster m, int k) {
-        Monster[] monster = Monster.monsters();
-        m = monster[k];
+    public int hitPlayer() {
 
-        return m.getHealth() - getPlayer().getDamage();
+
+        return monster.getHealth() - getPlayer().getDamage() - getInventory().getWeaponDamage();
     }
 }

@@ -1,16 +1,26 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Inventory {
     boolean water;
     boolean food;
     boolean firewood;
-    int weaponCode;
-    int armorCode;
     int weaponDamage;
     int armorDefence;
 
-    public Inventory(boolean water,boolean firewood,boolean food) {
-        this.water = water;
-        this.food = food;
-        this.firewood = firewood;
+    public Inventory() {
+        this.water = false;
+        this.food = false;
+        this.firewood = false;
+        this.weaponDamage = 0;
+        this.armorDefence = 0;
+
+    }
+
+    List<String> inv = new ArrayList<String>();
+    public void randomItem(){
+        
     }
 
     public void setWater(boolean water) {
@@ -36,4 +46,23 @@ public class Inventory {
     public boolean isFirewood() {
         return firewood;
     }
+
+
+    public void setWeaponDamage(int weaponDamage) {
+        this.weaponDamage = weaponDamage;
+    }
+
+    public void setArmorDefence(int armorDefence) {
+        this.armorDefence = armorDefence;
+    }
+
+
+    public int getWeaponDamage() {
+        return weaponDamage;
+    }
+
+    public int getArmorDefence() {
+        return armorDefence;
+    }
+
 }

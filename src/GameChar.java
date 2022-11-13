@@ -4,6 +4,7 @@ public class GameChar {
     private int money;
     private int defence;
     private String charName;
+    private boolean winCondition;
 
     private int maxHealth;
 
@@ -14,6 +15,7 @@ public class GameChar {
         this.charName = charName;
         this.maxHealth = maxHealth;
         this.defence = defence;
+        this.winCondition = false;
 
     }
 
@@ -71,5 +73,13 @@ public class GameChar {
 
     public int getDefence() {
         return defence;
+    }
+
+    public void setWinCondition(boolean winCondition) {
+        this.winCondition = winCondition;
+    }
+
+    public boolean isWinCondition() {
+        return winCondition;
     }
 }

@@ -1,14 +1,13 @@
 public class Cave extends dangerousLocation {
     public Cave(Player player,Inventory inventory) {
 
-        super(player, "Cave",inventory);
+        super(player, "Cave",inventory, new Zombie());
     }
 
     @Override
-    public boolean onLocation() {
+    public void onLocation() {
         Monster[] monsters = Monster.monsters();
         System.out.println("you entered the cave.");
         combat(0);
-        return true;
     }
 }

@@ -6,7 +6,7 @@ public class Store extends safeLocation {
     }
 
     @Override
-    public boolean onLocation() {
+    public void onLocation() {
         System.out.println("Welcome to the shop adventurer!");
         System.out.println("What do you want to buy?");
         System.out.println("1 - Weapons \n2 - Armors \n3 - Exit");
@@ -22,11 +22,12 @@ public class Store extends safeLocation {
                 if (weapons[0].getPrice() > getPlayer().getMoney()) {
                     System.out.println("You don't have enough money.");
                     System.out.println("-----------");
-                    return onLocation();
+                    onLocation();
+
                 } else {
                     System.out.println("You have successfully bought the item.");
 
-                    getPlayer().setDamage(getPlayer().getDamage() + weapons[0].getDamage());
+                    getInventory().setWeaponDamage(weapons[0].getDamage());
                     getPlayer().setMoney(getPlayer().getMoney() - weapons[0].getPrice());
                     getPlayer().printMoney();
                     System.out.println("-----------");
@@ -37,10 +38,11 @@ public class Store extends safeLocation {
                 if (weapons[1].getPrice() > getPlayer().getMoney()) {
                     System.out.println("You don't have enough money.");
                     System.out.println("-----------");
-                    return onLocation();
+                    onLocation();
+
                 } else {
                     System.out.println("You have successfully bought the item.");
-                    getPlayer().setDamage(getPlayer().getDamage() + weapons[1].getDamage());
+                    getInventory().setWeaponDamage(weapons[1].getDamage());
                     getPlayer().setMoney(getPlayer().getMoney() - weapons[1].getPrice());
                     getPlayer().printMoney();
                     System.out.println("-----------");
@@ -52,10 +54,11 @@ public class Store extends safeLocation {
                 if (weapons[2].getPrice() > getPlayer().getMoney()) {
                     System.out.println("You don't have enough money.");
                     System.out.println("-----------");
-                    return onLocation();
+                    onLocation();
+
                 } else {
                     System.out.println("You have successfully bought the item.");
-                    getPlayer().setDamage(getPlayer().getDamage() + weapons[2].getDamage());
+                    getInventory().setWeaponDamage(weapons[2].getDamage());
                     getPlayer().setMoney(getPlayer().getMoney() - weapons[2].getPrice());
                     getPlayer().printMoney();
                     System.out.println("-----------");
@@ -76,10 +79,11 @@ public class Store extends safeLocation {
                 if (armors[0].getPrice() > getPlayer().getMoney()) {
                     System.out.println("You don't have enough money.");
                     System.out.println("-----------");
-                    return onLocation();
+                    onLocation();
+
                 } else {
                     System.out.println("You have successfully bought the item.");
-                    getPlayer().setDefence(armors[0].getDefence());
+                    getInventory().setArmorDefence(armors[0].getDefence());
                     getPlayer().setMoney(getPlayer().getMoney() - armors[0].getPrice());
                     getPlayer().printMoney();
                     System.out.println("-----------");
@@ -89,10 +93,11 @@ public class Store extends safeLocation {
                 if (armors[1].getPrice() > getPlayer().getMoney()) {
                     System.out.println("You don't have enough money.");
                     System.out.println("-----------");
-                    return onLocation();
+                    onLocation();
+
                 } else {
                     System.out.println("You have successfully bought the item.");
-                    getPlayer().setDefence(armors[1].getDefence());
+                    getInventory().setArmorDefence(armors[1].getDefence());
                     getPlayer().setMoney(getPlayer().getMoney() - armors[1].getPrice());
                     getPlayer().printMoney();
                     System.out.println("-----------");
@@ -101,10 +106,11 @@ public class Store extends safeLocation {
                 if (armors[2].getPrice() > getPlayer().getMoney()) {
                     System.out.println("You don't have enough money.");
                     System.out.println("-----------");
-                    return onLocation();
+                    onLocation();
+
                 } else {
                     System.out.println("You have successfully bought the item.");
-                    getPlayer().setDefence(armors[2].getDefence());
+                    getInventory().setArmorDefence(armors[2].getDefence());
                     getPlayer().setMoney(getPlayer().getMoney() - armors[2].getPrice());
                     getPlayer().printMoney();
                     System.out.println("-----------");
@@ -112,10 +118,8 @@ public class Store extends safeLocation {
 
             }
         } else if (choice == 3) {
-            return true;
+            return;
         }
-
-        return true;
     }
 
 

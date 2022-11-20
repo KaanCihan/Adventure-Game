@@ -18,9 +18,15 @@ public class Inventory {
 
     }
 
-    List<String> inv = new ArrayList<String>();
+    List<String> invWin = new ArrayList<String>();
+
+    List<String> invArmors = new ArrayList<String>();
+
+    List<String> invWeapons = new ArrayList<String>();
+
+
     public void randomItem(){
-        
+
     }
 
     public void setWater(boolean water) {
@@ -65,4 +71,9 @@ public class Inventory {
         return armorDefence;
     }
 
+    public void printInv(){
+        System.out.println("Unique Items : " + invWin);
+        System.out.println("Armors : " + invArmors );
+        System.out.println("Weapons : " + invWeapons);
+    }
 }

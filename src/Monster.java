@@ -5,16 +5,16 @@ public class Monster {
     private int health;
     private int money;
     private int maxHealth;
-    private int award;
+    private int reward;
 
-    public Monster(int id, String name, int damage, int health, int money, int maxHealth, int award) {
+    public Monster(int id, String name, int damage, int health, int money, int maxHealth, int reward) {
         this.id = id;
         this.damage = damage;
         this.health = health;
         this.money = money;
         this.name = name;
         this.maxHealth = maxHealth;
-        this.award = award;
+        this.reward = reward;
     }
 
     public static Monster[] monsters() {
@@ -73,11 +73,11 @@ public class Monster {
         this.maxHealth = maxHealth;
     }
 
-    public void setAward(int award) {
-        this.award = award;
+    public void setAward(int reward) {
+        this.reward = reward;
     }
 
     public int getAward() {
-        return award;
+        return reward;
     }
 }

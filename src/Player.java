@@ -14,6 +14,9 @@ public class Player {
     private String name;
     private String charName;
 
+    private int baseDamage;
+    private String armor;
+    private String weapon;
 
     public Player(String name, Inventory inventory) {
 
@@ -26,7 +29,7 @@ public class Player {
 
         System.out.println("1- Knight - | Damage : 8 | \t | Health : 24 | \t | Money : 5 |");
         System.out.println("2- Archer - | Damage : 7 | \t | Health : 18 | \t | Money : 20 |");
-        System.out.println("3- Samurai - | Damage : 5 | \t | Health : 21 | \t | Money : 15 |");
+        System.out.println("3-Samurai - | Damage : 5 | \t | Health : 21 | \t | Money : 15 |");
         System.out.println("Please choose one of them :");
         int choice = input.nextInt();
         switch (choice) {
@@ -37,53 +40,69 @@ public class Player {
 
 
     }
-    public void selectInventory(){
 
-    }
     public void selectLocation() {
         if (inventory.firewood && inventory.food && inventory.water) {
             System.out.println("you collected all rewards. visit safe location to win the game.");
         }
         System.out.println("Where do you want to go now?");
-        System.out.println("1-Store\n2-Safe House\n3-Cave\n4-Forest\n5-River\n6-Mine");
+        System.out.println("1-Storage\n2-Store\n3-Safe House\n4-Cave\n5-Forest\n6-River\n7-Mine");
 
         int choose = input.nextInt();
         switch (choose) {
             case 1:
-                Location store = new Store(this, inventory);
-                store.onLocation();
+                Location storage = new Storage(this, inventory);
+                storage.onLocation();
+
                 break;
             case 2:
+                Location store = new Store(this, inventory);
+                store.onLocation();
+
+                break;
+            case 3:
                 Location safeHouse = new SafeHouse(this, inventory);
                 safeHouse.onLocation();
                 break;
-            case 3:
-                Location cave = new Cave(this, inventory);
-                if (!getInventory().isfood()) {
-                    cave.onLocation();
-                } else {
-                    System.out.println("you have killed the all monsters in this area.");
-                }
-                break;
             case 4:
-                Location forest = new Forest(this, inventory);
-                if (!getInventory().isFirewood()) {
-                    forest.onLocation();
+                Location cave = new Cave(this, inventory);
+                if (!getInventory().invWin.contains("food")) {
+                    cave.onLocation();
+                    if (getInventory().invWin.contains("firewood") && getInventory().invWin.contains("food") && getInventory().invWin.contains("water")){
+                        System.out.println("\nyou have collected the all necessary items . return safe house to win the game.\n");
+                    }
                 } else {
                     System.out.println("you have killed the all monsters in this area.");
                 }
                 break;
             case 5:
-                Location river = new River(this, inventory);
-                if (!getInventory().isWater()) {
-                    river.onLocation();
+                Location forest = new Forest(this, inventory);
+                if (!getInventory().invWin.contains("firewood")) {
+                    forest.onLocation();
+                    if (getInventory().invWin.contains("firewood") && getInventory().invWin.contains("food") && getInventory().invWin.contains("water")){
+                        System.out.println("\nyou have collected the all necessary items . return safe house to win the game.\n");
+                    }
                 } else {
                     System.out.println("you have killed the all monsters in this area.");
                 }
                 break;
             case 6:
+                Location river = new River(this, inventory);
+                if (!getInventory().invWin.contains("water")) {
+                    river.onLocation();
+                    if (getInventory().invWin.contains("firewood") && getInventory().invWin.contains("food") && getInventory().invWin.contains("water")){
+                        System.out.println("\nyou have collected the all necessary items . return safe house to win the game.\n");
+                    }
+                } else {
+                    System.out.println("you have killed the all monsters in this area.");
+                }
+                break;
+            case 7:
                 Location mine = new Mine(this, inventory);
                 mine.onLocation();
+                if (getInventory().invWin.contains("firewood") && getInventory().invWin.contains("food") && getInventory().invWin.contains("water")){
+                    System.out.println("\nyou have collected the all necessary items . return safe house to win the game.\n");
+                }
 
         }
     }
@@ -95,6 +114,9 @@ public class Player {
         this.setCharName(gameChar.getCharName());
         this.setMaxHealth(gameChar.getMaxHealth());
         this.setWinCondition(gameChar.isWinCondition());
+        this.setBaseDamage(gameChar.getBaseDamage());
+        this.setArmor(gameChar.getArmor());
+        this.setWeapon(gameChar.getWeapon());
         gameChar.printStats();
     }
 
@@ -167,5 +189,29 @@ public class Player {
 
     public boolean isWinCondition() {
         return winCondition;
+    }
+
+    public void setBaseDamage(int baseDamage) {
+        this.baseDamage = baseDamage;
+    }
+
+    public int getBaseDamage() {
+        return baseDamage;
+    }
+
+    public void setArmor(String armor) {
+        this.armor = armor;
+    }
+
+    public void setWeapon(String weapon) {
+        this.weapon = weapon;
+    }
+
+    public String getArmor() {
+        return armor;
+    }
+
+    public String getWeapon() {
+        return weapon;
     }
 }

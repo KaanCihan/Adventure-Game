@@ -5,10 +5,13 @@ public class GameChar {
     private int defence;
     private String charName;
     private boolean winCondition;
+    private int baseDamage;
 
     private int maxHealth;
+    private String armor;
+    private String weapon;
 
-    public GameChar(int damage, int health, int money, String charName, int maxHealth, int defence) {
+    public GameChar(int damage, int health, int money, String charName, int maxHealth, int defence, int baseDamage) {
         this.damage = damage;
         this.health = health;
         this.money = money;
@@ -16,9 +19,33 @@ public class GameChar {
         this.maxHealth = maxHealth;
         this.defence = defence;
         this.winCondition = false;
+        this.baseDamage = baseDamage;
 
     }
 
+    public void setArmor(String armor) {
+        this.armor = armor;
+    }
+
+    public void setWeapon(String weapon) {
+        this.weapon = weapon;
+    }
+
+    public String getArmor() {
+        return armor;
+    }
+
+    public String getWeapon() {
+        return weapon;
+    }
+
+    public void setBaseDamage(int baseDamage) {
+        this.baseDamage = baseDamage;
+    }
+
+    public int getBaseDamage() {
+        return baseDamage;
+    }
 
     public int getDamage() {
         return damage;

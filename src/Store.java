@@ -2,14 +2,14 @@ public class Store extends safeLocation {
 
     public Store(Player player, Inventory inventory) {
 
-        super(player, "Store",inventory);
+        super(player, "Store", inventory);
     }
 
     @Override
     public void onLocation() {
         System.out.println("Welcome to the shop adventurer!");
         System.out.println("What do you want to buy?");
-        System.out.println("1 - Weapons \n2 - Armors \n3 - Exit");
+        System.out.println("1 - Weapons \n2 - Armors \n3 - Sell Item\n4 - Exit");
         int choice = input.nextInt();
         if (choice == 1) {
             Weapon[] weapons = Weapon.weapons();
@@ -26,8 +26,7 @@ public class Store extends safeLocation {
 
                 } else {
                     System.out.println("You have successfully bought the item.");
-
-                    getInventory().setWeaponDamage(weapons[0].getDamage());
+                    getInventory().invWeapons.add("pistol");
                     getPlayer().setMoney(getPlayer().getMoney() - weapons[0].getPrice());
                     getPlayer().printMoney();
                     System.out.println("-----------");
@@ -42,7 +41,7 @@ public class Store extends safeLocation {
 
                 } else {
                     System.out.println("You have successfully bought the item.");
-                    getInventory().setWeaponDamage(weapons[1].getDamage());
+                    getInventory().invWeapons.add("sword");
                     getPlayer().setMoney(getPlayer().getMoney() - weapons[1].getPrice());
                     getPlayer().printMoney();
                     System.out.println("-----------");
@@ -58,7 +57,7 @@ public class Store extends safeLocation {
 
                 } else {
                     System.out.println("You have successfully bought the item.");
-                    getInventory().setWeaponDamage(weapons[2].getDamage());
+                    getInventory().invWeapons.add("rifle");
                     getPlayer().setMoney(getPlayer().getMoney() - weapons[2].getPrice());
                     getPlayer().printMoney();
                     System.out.println("-----------");
@@ -77,13 +76,14 @@ public class Store extends safeLocation {
             if (choice == 1) {
 
                 if (armors[0].getPrice() > getPlayer().getMoney()) {
+
                     System.out.println("You don't have enough money.");
                     System.out.println("-----------");
                     onLocation();
 
                 } else {
                     System.out.println("You have successfully bought the item.");
-                    getInventory().setArmorDefence(armors[0].getDefence());
+                    getInventory().invArmors.add("soft");
                     getPlayer().setMoney(getPlayer().getMoney() - armors[0].getPrice());
                     getPlayer().printMoney();
                     System.out.println("-----------");
@@ -97,7 +97,7 @@ public class Store extends safeLocation {
 
                 } else {
                     System.out.println("You have successfully bought the item.");
-                    getInventory().setArmorDefence(armors[1].getDefence());
+                    getInventory().invArmors.add("mid");
                     getPlayer().setMoney(getPlayer().getMoney() - armors[1].getPrice());
                     getPlayer().printMoney();
                     System.out.println("-----------");
@@ -110,7 +110,7 @@ public class Store extends safeLocation {
 
                 } else {
                     System.out.println("You have successfully bought the item.");
-                    getInventory().setArmorDefence(armors[2].getDefence());
+                    getInventory().invArmors.add("heavy");
                     getPlayer().setMoney(getPlayer().getMoney() - armors[2].getPrice());
                     getPlayer().printMoney();
                     System.out.println("-----------");
@@ -118,7 +118,11 @@ public class Store extends safeLocation {
 
             }
         } else if (choice == 3) {
+            sellItem();
+            onLocation();
+        } else if (choice == 4) {
             return;
+
         }
     }
 
@@ -145,6 +149,44 @@ public class Store extends safeLocation {
             System.out.println("Price : " + w.getPrice());
 
         }
+
+    }
+
+
+    public void sellItem() {
+        Armor[] armors = Armor.armors();
+        Weapon[] weapons = Weapon.weapons();
+        getInventory().printInv();
+
+        System.out.println("write the name of the item you want to sell.");
+        String choice = input.next();
+
+        if (choice.equals("food") || choice.equals("firewood") || choice.equals("water")) {
+            System.out.println("you can't sell a unique item.");
+        } else if (choice.equals("soft") && getInventory().invArmors.contains("soft")) {
+            getInventory().invArmors.remove("soft");
+            getPlayer().setMoney(getPlayer().getMoney() + armors[0].getPrice());
+        } else if (choice.equals("mid") && getInventory().invArmors.contains("mid")) {
+            getInventory().invArmors.remove("mid");
+            getPlayer().setMoney(getPlayer().getMoney() + armors[1].getPrice());
+        } else if (choice.equals("heavy") && getInventory().invArmors.contains("heavy")) {
+            getInventory().invArmors.remove("heavy");
+            getPlayer().setMoney(getPlayer().getMoney() + armors[2].getPrice());
+        } else if (choice.equals("pistol") && getInventory().invWeapons.contains("pistol")) {
+            getInventory().invWeapons.remove("pistol");
+            getPlayer().setMoney(getPlayer().getMoney() + weapons[0].getPrice());
+        } else if (choice.equals("sword") && getInventory().invWeapons.contains("sword")) {
+            getInventory().invWeapons.remove("sword");
+            getPlayer().setMoney(getPlayer().getMoney() + weapons[1].getPrice());
+        } else if (choice.equals("rifle") && getInventory().invWeapons.contains("rifle")) {
+            getInventory().invWeapons.remove("rifle");
+            getPlayer().setMoney(getPlayer().getMoney() + weapons[2].getPrice());
+        } else {
+            System.out.println("you don't have this item.");
+        }
+        getPlayer().printMoney();
+
+
 
     }
 
